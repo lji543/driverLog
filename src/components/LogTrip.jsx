@@ -2,7 +2,7 @@ import React from 'react';
 
 export class LogTrip extends React.Component{
 
-  registeredDrivers = new Set();
+  // registeredDrivers = new Set();
   userAlert;
 
 
