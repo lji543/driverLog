@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import { LogTrip } from './components/LogTrip';
-import { RegisterDriver } from './components/RegisterDriver';
-
+import { LogTrip } from './containers/LogTrip';
+import { RegisterDriver } from './containers/RegisterDriver';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      driverName: '',
+      registeredDrivers: new Set(),
+      userAlert: '',
+    };
+  }
+
   render() {
     return (
       <div>
-        <RegisterDriver/>
-        <LogTrip/>
+        <RegisterDriver registeredDrivers={this.state.registeredDrivers}/>
+        <LogTrip registeredDrivers={this.state.registeredDrivers}/>
       </div>
 
     );
