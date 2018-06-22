@@ -1,5 +1,8 @@
 import React from 'react';
 import { RegisterDriver } from './RegisterDriver';
+import { UserMessage } from '../components/UserMessage';
+import { DisplayList } from '../components/DisplayList';
+import { Select } from '../components/Select';
 
 // 07:15 09:15 42
 
@@ -10,9 +13,11 @@ export class LogTrip extends React.Component{
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.logTrip = this.logTrip.bind(this);
+
+    // TODO: move any of these to props?
     this.state = {
       driverName: '',
-      // registeredDrivers: new Set(),
+      loggedDriverData: [],
       registeredDrivers:  this.props.registeredDrivers,
       tripInfo: '',
       userAlert: '',
@@ -24,11 +29,10 @@ export class LogTrip extends React.Component{
   }
 
   _printReport() {
-    let driverList = document.getElementById('driverList');
-    driverList.innerHTML = "";
+    let registeredDrivers = this.state.registeredDrivers;
 
-    this.registeredDrivers.forEach(function(driverObj) {
-      let driverListItem = document.createElement("li")
+    registeredDrivers.forEach(function(driverObj) {
+      // let driverListItem = document.createElement("li")
 
       let driverPrint;
       if (driverObj.distance === 0) {
@@ -39,8 +43,7 @@ export class LogTrip extends React.Component{
           driverObj.distance + ' miles @ ' + driverObj.mph + ' mph';
       }
 
-      driverListItem.innerHTML = driverPrint;
-      document.getElementById("driverList").appendChild(driverListItem);
+      this.state.loggedDriverData.push(driverPrint);
     });
   }
 
@@ -88,14 +91,15 @@ export class LogTrip extends React.Component{
   			<p>Log Trips:</p>
   			<div>
   				<span>Driver: </span>
-  				<select id="driverSelect">
-  					<option value="">-</option>
-  				</select>
+          <Select/>
   			</div>
         <div>Example Format: 07:15 09:15 42</div>
   			<input onChange={this.handleChange} value={tripInfo} type="text"></input>
   			<button onClick={this.logTrip}
-  				type="button" name="button">Log</button>
+  				type="button" name="button">Log
+        </button>
+        <UserMessage message={this.state.message}/>
+        <DisplayList items={this.state.loggedDriverData}/>
   		</div>
     );
   }

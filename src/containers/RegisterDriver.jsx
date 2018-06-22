@@ -1,13 +1,19 @@
 import React from 'react';
+import { UserMessage } from '../components/UserMessage';
+
 // TODO: move Drivers to own component/class
 // import { Drivers } from '../Drivers';
 
 // TODO: need the export here as well as the default below?
 export class RegisterDriver extends React.Component{
+
   constructor(props) {
     super(props);
+    // this.props.test = ['one']
+    // console.log(this.props)
     this.handleChange = this.handleChange.bind(this);
     this.registerDriver = this.registerDriver.bind(this);
+    // TODO: move any of these to props?
     this.state = {
       driverName: '',
       registeredDrivers: this.props.registeredDrivers,
@@ -47,14 +53,14 @@ export class RegisterDriver extends React.Component{
 
   // TODO: replace native js w/ more react type language
   _buildSelectList(driverName) {
-    let driverSelect = document.getElementById('driverSelect');
-    let driverOption = document.createElement("option")
+    // let driverSelect = document.getElementById('driverSelect');
+    // let driverOption = document.createElement("option")
 
-    driverOption.setAttribute("value", driverName);
-    driverOption.setAttribute("id", driverName);
-    driverOption.appendChild(document.createTextNode(driverName));
+    // driverOption.setAttribute("value", driverName);
+    // driverOption.setAttribute("id", driverName);
+    // driverOption.appendChild(document.createTextNode(driverName));
 
-    document.getElementById("driverSelect").appendChild(driverOption);
+    // document.getElementById("driverSelect").appendChild(driverOption);
   }
 
 
@@ -67,7 +73,9 @@ export class RegisterDriver extends React.Component{
     			<p>Register Driver:</p>
     			<input onChange={this.handleChange} value={driverName} type="text"></input>
     			<button onClick={this.registerDriver}
-    				type="button" name="button">Register</button>
+    				type="button" name="button">Register
+          </button>
+          <UserMessage message={this.state.message}/>
     		</div>
       );
     }
