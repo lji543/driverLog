@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LogTrip } from './containers/LogTrip';
+// import { LogTrip } from './containers/LogTrip';
 import { RegisterDriver } from './containers/RegisterDriver';
 import { UserMessage } from './components/UserMessage';
 
@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <div>
         <RegisterDriver registeredDrivers={this.state.registeredDrivers}/>
-        <LogTrip registeredDrivers={this.state.registeredDrivers}/>
+        {/* <LogTrip registeredDrivers={this.state.registeredDrivers}/> */}
       </div>
     );
   }

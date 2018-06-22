@@ -91,7 +91,7 @@ export class LogTrip extends React.Component{
   			<p>Log Trips:</p>
   			<div>
   				<span>Driver: </span>
-          <Select/>
+          <Select items={this.state.registeredDrivers}/>
   			</div>
         <div>Example Format: 07:15 09:15 42</div>
   			<input onChange={this.handleChange} value={tripInfo} type="text"></input>

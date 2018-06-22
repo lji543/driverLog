@@ -1,4 +1,5 @@
 import React from 'react';
+import { LogTrip } from './LogTrip';
 import { UserMessage } from '../components/UserMessage';
 
 // TODO: move Drivers to own component/class
@@ -9,10 +10,9 @@ export class RegisterDriver extends React.Component{
 
   constructor(props) {
     super(props);
-    // this.props.test = ['one']
-    // console.log(this.props)
     this.handleChange = this.handleChange.bind(this);
     this.registerDriver = this.registerDriver.bind(this);
+
     // TODO: move any of these to props?
     this.state = {
       driverName: '',
@@ -30,7 +30,14 @@ export class RegisterDriver extends React.Component{
     let registeredDrivers = this.state.registeredDrivers;
     let userAlert = this.state.userAlert;
 
-    if (registeredDrivers.has(driverName)) {
+    let alreadyRegistered;
+    registeredDrivers.forEach(
+      function(driver) {
+        alreadyRegistered = (driver.name === driverName) ? true : false;
+      }
+    );
+
+    if (alreadyRegistered) {
       userAlert =
         'This driver has already been registered. Please choose another name.';
     } else {
@@ -43,26 +50,14 @@ export class RegisterDriver extends React.Component{
         }
       );
 
-      this._buildSelectList(driverName);
       userAlert = 'Driver successfully registered.';
     }
 
-    // document.getElementById('userAlert').innerHTML = this.userAlert;
-    // document.getElementById('driverName').value = '';
+    this.setState({
+      registeredDrivers: registeredDrivers,
+      userAlert: userAlert,
+    });
   }
-
-  // TODO: replace native js w/ more react type language
-  _buildSelectList(driverName) {
-    // let driverSelect = document.getElementById('driverSelect');
-    // let driverOption = document.createElement("option")
-
-    // driverOption.setAttribute("value", driverName);
-    // driverOption.setAttribute("id", driverName);
-    // driverOption.appendChild(document.createTextNode(driverName));
-
-    // document.getElementById("driverSelect").appendChild(driverOption);
-  }
-
 
 
     render(){
@@ -75,7 +70,8 @@ export class RegisterDriver extends React.Component{
     			<button onClick={this.registerDriver}
     				type="button" name="button">Register
           </button>
-          <UserMessage message={this.state.message}/>
+          <UserMessage message={this.state.userAlert}/>
+          <LogTrip registeredDrivers={this.state.registeredDrivers}/>
     		</div>
       );
     }
