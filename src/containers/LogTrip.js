@@ -1,5 +1,5 @@
 import React from 'react';
-import { RegisterDriver } from './RegisterDriver';
+// import { RegisterDriver } from './RegisterDriver';
 import { UserMessage } from '../components/UserMessage';
 import { DisplayList } from '../components/DisplayList';
 import { Select } from '../components/Select';
@@ -13,6 +13,10 @@ export class LogTrip extends React.Component{
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.logTrip = this.logTrip.bind(this);
+
+    // console.log('log trip props ', this.props)
+    // console.log('log trip state ', this.state)
+    // console.log('log trip', RegisterDriver)
 
     // TODO: move any of these to props?
     this.state = {
@@ -51,7 +55,7 @@ export class LogTrip extends React.Component{
   logTrip() {
     let driverName = document.getElementById('driverSelect').value;
     let tripInfo = this.state.tripInfo;
-    let userAlert = this.state.userAlert;
+    // let userAlert = this.state.userAlert;
     let registeredDrivers = this.state.registeredDrivers;
 
     function _findMinutes(timeString) {
@@ -91,7 +95,7 @@ export class LogTrip extends React.Component{
   			<p>Log Trips:</p>
   			<div>
   				<span>Driver: </span>
-          <Select items={this.state.registeredDrivers}/>
+          <Select items={this.props.registeredDrivers}/>
   			</div>
         <div>Example Format: 07:15 09:15 42</div>
   			<input onChange={this.handleChange} value={tripInfo} type="text"></input>

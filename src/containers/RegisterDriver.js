@@ -10,27 +10,30 @@ export class RegisterDriver extends React.Component{
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.registerDriver = this.registerDriver.bind(this);
 
-    // TODO: move any of these to props?
     this.state = {
+      registeredDrivers: [],
       driverName: '',
-      registeredDrivers: this.props.registeredDrivers,
-      userAlert: '',
+      userAlert: ''
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.registerDriverfn = this.registerDriverfn.bind(this);
   }
+
 
   handleChange(e) {
     this.setState({driverName: e.target.value});
   }
 
-  registerDriver() {
+  registerDriverfn() {
+    console.log('drivers ',this.state)
+
     let driverName = this.state.driverName;
     let registeredDrivers = this.state.registeredDrivers;
-    let userAlert = this.state.userAlert;
-
+    let userAlert = this.userAlert;
     let alreadyRegistered;
+
     registeredDrivers.forEach(
       function(driver) {
         alreadyRegistered = (driver.name === driverName) ? true : false;
@@ -41,7 +44,7 @@ export class RegisterDriver extends React.Component{
       userAlert =
         'This driver has already been registered. Please choose another name.';
     } else {
-      registeredDrivers.add(
+      registeredDrivers.push(
         {
           name:driverName,
           mph:0,
@@ -53,24 +56,20 @@ export class RegisterDriver extends React.Component{
       userAlert = 'Driver successfully registered.';
     }
 
-    this.setState({
-      registeredDrivers: registeredDrivers,
-      userAlert: userAlert,
-    });
+    this.setState({registeredDrivers: registeredDrivers});
   }
 
 
     render(){
-      let driverName = this.state.driverName;
 
       return (
         <div>
     			<p>Register Driver:</p>
-    			<input onChange={this.handleChange} value={driverName} type="text"></input>
-    			<button onClick={this.registerDriver}
+          <input onChange={this.handleChange} value={this.state.driverName} type="text"></input>
+    			<button onClick={this.registerDriverfn}
     				type="button" name="button">Register
           </button>
-          <UserMessage message={this.state.userAlert}/>
+          <UserMessage message={this.userAlert}/>
           <LogTrip registeredDrivers={this.state.registeredDrivers}/>
     		</div>
       );
